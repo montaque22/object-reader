@@ -106,16 +106,17 @@ montaque.ObjectReader = function (source){
     };
 
     /**
-     * This method allows you to read into an object many levels deep without throwing an error if you access
-     * an undefined property. If you access an undefined property it will return undefined or it will return
-     * the value you specified in the defaultProperty param.
+     * This method allows you to read into an object many levels deep using a string dot notation. If you try to
+     * access properties from undefined members it will return undefined or whatever you tell it to return in the
+     * defaultProperty param. You can also access array members by referring to the index in the dot notation.
      *
      * @example
-     *  var obj = {a:1, b:{c:'test', d:{e:'me'}}}
+     *  var obj = {a:1, b:{c:'test', d:{e:'me'}, f:[30,29,{g:31}]}}
      *  var reader = new ObjectReader(obj);
      *  reader.inspect('a')                         // -> 1
-     *  reader.inspect('b.c')                       // -> test
-     *  reader.inspect('b.d.e')                     // -> me
+     *  reader.inspect('b.c')                       // -> 'test'
+     *  reader.inspect('b.d.e')                     // -> 'me'
+     *  reader.inspect('b.f.2.g')                   // -> 31
      *  reader.inspect(b.d.f.g, 'Does not exist')   // -> 'Does not exist'
      *
      * @param propertyString {String}   Dot notations string path to the key you want to access

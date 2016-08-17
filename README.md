@@ -1,7 +1,7 @@
 # ObjectReader
 
 **ObjectReader** provides a safe way to access and modify arrays and objects. Gone are the days of seeing... 
->TypeError: Cannot read property '<insert non-existent property name here>' of undefined. 
+>TypeError: Cannot read property '{insert non-existent property name here}' of undefined. 
 
 **ObjectReader** allows you to access all the undefined properties and array indecies you want without complaining.
  
