@@ -1,0 +1,24 @@
+{
+  "name": "montaque-objectreader",
+  "description": "A safe way to access and manipulate object properties and arrays",
+  "main": "src/js/object-reader.js",
+  "authors": [
+    "Michael Montaque"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "Object",
+    "inspect",
+    "array",
+    "reader",
+    "utility"
+  ],
+  "homepage": "https://github.com/montaque22/object-reader",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
