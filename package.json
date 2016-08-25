@@ -4,7 +4,7 @@
   "description": "A safe way to access and manipulate object properties and arrays",
   "main": "src/js/object-reader.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha tests/main.js"
   },
   "repository": {
     "type": "git",
@@ -22,5 +22,9 @@
   "bugs": {
     "url": "https://github.com/montaque22/object-reader/issues"
   },
-  "homepage": "https://github.com/montaque22/object-reader#readme"
+  "homepage": "https://github.com/montaque22/object-reader#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.0.2"
+  }
 }

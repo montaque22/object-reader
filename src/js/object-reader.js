@@ -56,12 +56,10 @@ var ObjectReader    = null;
 montaque.ObjectReader = function (source){
     var _source = source;
 
+    verifySource();
     runPolyfills();
 
-    switch(typeof _source){
-        case 'number':
-            throw new Error( typeof source + ' is not a acceptable parameter for the ObjectReader')
-    }
+
 
 
     /**
@@ -77,7 +75,12 @@ montaque.ObjectReader = function (source){
      * @param source {Object | Array} changes the source of the reader to the value provided
      */
     this.setSource = function(source){
-        _source = source;
+       var didPass = verifySource(source, true);
+
+        if(didPass)
+            _source = source;
+
+        return didPass
     };
 
     /**
@@ -273,6 +276,23 @@ montaque.ObjectReader = function (source){
 
     };
 
+
+    /*
+        Make sure the source is of an acceptable type
+     */
+    function verifySource(source, suppressError){
+        source = source || _source;
+
+        switch(typeof source){
+            case 'number':
+            case 'string':
+                if(suppressError)
+                    return false;
+                throw new Error( typeof source + ' is not a acceptable parameter for the ObjectReader')
+            default:
+                return true;
+        }
+    }
 
     /*
      * Setup all the polyfills needed to run this framework
