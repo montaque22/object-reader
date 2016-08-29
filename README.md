@@ -1,5 +1,7 @@
 # ObjectReader
 
+[![Build Status](https://travis-ci.org/montaque22/object-reader.svg?branch=master)](https://travis-ci.org/montaque22/object-reader)
+
 **ObjectReader** provides a safe way to access and modify arrays and objects. Gone are the days of seeing... 
 >TypeError: Cannot read property '{insert non-existent property name here}' of undefined. 
 
