@@ -183,3 +183,20 @@ describe('Testing: inject', function() {
     });
 
 });
+
+describe('Testing: doesSourceExist', function() {
+
+    it('Should return true if initialized with an objectbor array', function() {
+        var reader = new ObjectReader({});
+        reader.doesSourceExists().should.equal(true);
+        reader.setSource([]);
+        reader.doesSourceExists().should.equal(true);
+    });
+
+    it('Should return false if initialized with nothing', function() {
+        var reader = new ObjectReader();
+        reader.doesSourceExists().should.equal(false);
+    });
+    
+
+});
