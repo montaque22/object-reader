@@ -9,6 +9,7 @@
  
  #### Example
  ```js
+ var ObjectReader = require('montaque-objectreader').ObjectReader;
  var obj = {a:1, b:{c:'test', d:{e:'me'}}}
  var reader = new ObjectReader(obj);
  reader.inspect('b.d.e')    // -> me
