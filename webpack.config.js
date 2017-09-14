@@ -4,7 +4,7 @@ module.exports = {
     entry: './src/js/object-reader.js',
     output: {
         libraryTarget: "umd",
-        filename: 'object-reader.js',
+        filename: 'object-reader.min.js',
         path: path.resolve(__dirname,'dist')
     },
     plugins:[new UglifyJSPlugin()]
