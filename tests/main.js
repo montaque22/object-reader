@@ -3,8 +3,8 @@
  */
 var should          = require('chai').should();
 var assert          = require('assert');
-var ObjectReader    = require('../src/js/object-reader.js');
-
+var ObjectReader    = require('../dist/object-reader').ObjectReader;
+console.log(ObjectReader);
 
 
 describe('Testing: constructor', function() {
@@ -197,6 +197,6 @@ describe('Testing: doesSourceExist', function() {
         var reader = new ObjectReader();
         reader.doesSourceExists().should.equal(false);
     });
-    
+
 
 });

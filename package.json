@@ -4,7 +4,8 @@
   "description": "A safe way to access and manipulate object properties and arrays",
   "main": "src/js/object-reader.js",
   "scripts": {
-    "test": "mocha tests/main.js"
+    "test": "mocha tests/main.js",
+    "compile": "webpack --config webpack.config.js"
   },
   "repository": {
     "type": "git",
