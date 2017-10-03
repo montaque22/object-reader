@@ -1,43 +1,165 @@
-# ObjectReader
+# Object-Reader [![Build Status](https://travis-ci.org/montaque22/object-reader.svg?branch=master)](https://travis-ci.org/montaque22/object-reader)
 
-[![Build Status](https://travis-ci.org/montaque22/object-reader.svg?branch=master)](https://travis-ci.org/montaque22/object-reader)
 
-**ObjectReader** provides a safe way to access and modify arrays and objects. Gone are the days of seeing... 
->TypeError: Cannot read property '{insert non-existent property name here}' of undefined. 
+### Table of Contents
 
-**ObjectReader** allows you to access all the undefined properties and array indecies you want without complaining.
- 
- #### Example
- ```js
- var ObjectReader = require('montaque-objectreader').ObjectReader;
- var obj = {a:1, b:{c:'test', d:{e:'me'}}}
+-   [ObjectReader](#objectreader)
+    -   [doesSourceExists](#doessourceexists)
+    -   [setSource](#setsource)
+    -   [getSource](#getsource)
+    -   [inspect](#inspect)
+    -   [inject](#inject)
+-   [montaque](#montaque)
+    -   [ObjectReader](#objectreader-1)
+
+## ObjectReader
+
+ObjectReader is a class that allows you to access the properties of objects and arrays without fear of having
+illegal access errors It also allows you to quickly add data and construct your object using simple string dot
+notation.
+
+**Parameters**
+
+-   `source`  
+
+**Examples**
+
+_Install Via NPM_
+
+```javascript
+npm install --save montaque-objectreader
+```
+
+_Install Via Bower_
+
+```javascript
+bower install montaque-objectreader
+```
+
+_Other_
+
+```javascript
+// Or just download and place the object-reader.js file in your directory and enjoy.
+```
+
+**Meta**
+
+-   **author**: Michael Montaque on 8/14/16.
+
+### doesSourceExists
+
+Returns whether or not the reader has a source associated with it
+
+Returns **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
+
+### setSource
+
+sets the source of the reader. (The source is the object that will be read.)
+
+**Parameters**
+
+-   `source`  {Object | Array} changes the source of the reader to the value provided
+
+### getSource
+
+Returns the source as given or as an array of objects.
+
+**Parameters**
+
+-   `asArray`  {Boolean} If true will return source as array
+
+Returns **([Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object) \| [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array))** returns the ObjectReader's source. NOTE: the returned source is a deep clone of the
+original so it can be manipulated without mutating the original
+
+### inspect
+
+This method allows you to read into an object many levels deep using a string dot notation. If you try to
+access properties from undefined members it will return undefined or whatever you tell it to return in the
+defaultProperty param. You can also access array members by referring to the index in the dot notation.
+
+**Parameters**
+
+-   `propertyString`  {String}   Dot notations string path to the key you want to access
+-   `defaultProperty`  {any}     value you want to return if the accessed key is non-existent
+
+**Examples**
+
+```javascript
+var obj = {a:1, b:{c:'test', d:{e:'me'}, f:[30,29,{g:31}]}}
  var reader = new ObjectReader(obj);
- reader.inspect('b.d.e')    // -> me
- reader.inspect('b.d.nonExistentProperty.anotherNonExistentPropery')    // -> undefined
- reader.inspect('b.d.nonExistentProperty', 'Return this if not exist')  // -> 'Return this if not exist'
- reader.inject('b.d.nonExistentProperty', 'i exist') // obj.b.d.nonExistentProperty -> 'i exist'
- ```
- 
- ## Installation
- 
- **Install Via Node**
-```sh
-$ npm install --save montaque-objectreader
+ reader.inspect('a')                         // -> 1
+ reader.inspect('b.c')                       // -> 'test'
+ reader.inspect('b.d.e')                     // -> 'me'
+ reader.inspect('b.f.2.g')                   // -> 31
+ reader.inspect(b.d.f.g, 'Does not exist')   // -> 'Does not exist'
 ```
 
- **Install Via Bower**
-```sh
-$ bower install --save montaque-objectreader
+Returns **any** 
+
+### inject
+
+Sets the given value to the key dictated by the keyString using recursion. If isStrict is set to true then the
+function will fail and return false when trying to set a value to illegal objects or if the path dictated by
+the keyString does not exist. If successful, this method mutates the original object (source).
+
+**Parameters**
+
+-   `keyString`  Path (Denoted in string dot notation) of where to set the value
+-   `value`  value you want to set
+-   `isStrict`  protects the object from unintended mutations.
+
+**Examples**
+
+```javascript
+var obj = {a:1, b:{c:'test', d:{e:'me'}}}
+ var reader = new ObjectReader(obj);
+
+ // To set a new value at an existing key path
+ reader.inject('b.c', 3)   // true  ( obj.b.c -> 3 )
+
+ // To set a new value at a shallow non-existent path
+ reader.inject('b.d.f', 'new value' )   // true ( obj.b.d.f -> 'new value' )
+
+ // To set a new value at a deep non-existent path
+ reader.inspect('e.f.g', 'created')          // true ({a:1, b:{c:'test', d:{e:'me'}}, e:{f:{g:created}})
+
+ // You can also set arrays by using number
+ reader.inspect(a.0.b.0, 'exist')            // true (obj -> {a:[{b:['exist']}], b:{c:'test', d:{e:'me'}})
+
+ // To safely set a new value at a deep non-existent path without unexpected mutations
+ reader.inspect('b.c.d', 'fail', true)       // false (obj.b.c.d does not exist so nothing happens)
+ reader.inspect('e.f.g', 'fail', true)       // false (obj.e does not exist so nothing happens)
+ reader.inspect('e', 'pass', true)           // true (obj -> {a:1, b:{c:'test', d:{e:'me'}}, e:'pass')
 ```
-**Other**
-Feel free to manually add this to your web projects and enjoy.
 
-## API
-To see all the awesome things ObjectReader can do check out the [API HERE](API.md)
-## License
-Copyright (c) 2016, Michael Montaque <montaque.developer@gmail.com>
+Returns **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Returns true if successful.
 
-Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.
+## montaque
 
-THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+### ObjectReader
 
+Takes in a source object such as an array or object. Even if the source object is updated the ObjectReader
+is pointing to the original and will contain the updated values
+
+**Parameters**
+
+-   `source`  {Object | Array} the object or array to inspect
+
+**Examples**
+
+```javascript
+var obj = {a:1, b:{c:'test', d:{e:'me'}}}
+var reader = new ObjectReader(obj);
+
+// alternatively
+var reader = new montaque.ObjectReader(obj)
+
+// or if you have npm
+var ObjectReader = require('ObjectReader');
+var reader = new ObjectReader(obj)
+
+// or if you are using angular
+angular.modules(<YOUR-APP-NAME>, ['montaque.objectreader']).run(['ObjectReader' function(ObjectReader){
+     var reader = new ObjectReader(obj)
+}])
+```

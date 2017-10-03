@@ -45,11 +45,6 @@
  * var ObjectReader = require('ObjectReader');
  * var reader = new ObjectReader(obj)
  *
- * // or if you are using angular
- * angular.modules(<YOUR-APP-NAME>, ['montaque.objectreader']).run(['ObjectReader' function(ObjectReader){
- *      var reader = new ObjectReader(obj)
- * }])
- *
  * @param source {Object | Array} the object or array to inspect
  * @constructor
  */
@@ -400,19 +395,4 @@ export function ObjectReader(source){
         }
     }
 };
-
-
-if(typeof angular === 'object'){
-    angular.module('montaque.objectreader',[]);
-
-    angular.module('montaque.objectreader')
-        .provider('ObjectReader', [ function(){
-
-            this.$get = function(){
-
-                return ObjectReader
-            }
-        }])
-}
-
 

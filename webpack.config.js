@@ -1,11 +1,18 @@
 const path = require('path');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const ClosureCompilerPlugin = require('webpack-closure-compiler');
+const plugins               = [];
+const isProduction          = process.env.PRODUCTION
+const uglify                = new ClosureCompilerPlugin();
+const devBuildOption        = isProduction ? '' : 'source-map';
+plugins.push(uglify);
+
 module.exports = {
     entry: './src/js/object-reader.js',
     output: {
         libraryTarget: "umd",
-        filename: 'object-reader.min.js',
+        filename: isProduction ? 'object-reader.min.js' : 'object-reader.js',
         path: path.resolve(__dirname,'dist')
     },
-    plugins:[new UglifyJSPlugin()]
+    devtool: devBuildOption,
+    plugins: isProduction ? plugins : []
 };
