@@ -6,18 +6,20 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.tsx?$/,
-                use: ['babel-loader', 'awesome-typescript-loader'],
-                exclude: /node_modules/
+                test: /\.js?$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['es2015']
+                    }
+                }
             }
         ]
     },
     resolve: {
-        extensions: [ ".tsx", ".ts", ".js" ]
+        extensions: [".js" ]
     },
-
 };
 
-
-console.log(process.env.PRODUCTION);
 

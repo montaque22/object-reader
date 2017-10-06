@@ -9,8 +9,7 @@
     -   [getSource](#getsource)
     -   [inspect](#inspect)
     -   [inject](#inject)
--   [montaque](#montaque)
-    -   [ObjectReader](#objectreader-1)
+    -   [toString](#tostring)
 
 ## ObjectReader
 
@@ -134,32 +133,10 @@ var obj = {a:1, b:{c:'test', d:{e:'me'}}}
 
 Returns **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Returns true if successful.
 
-## montaque
+### toString
 
-### ObjectReader
-
-Takes in a source object such as an array or object. Even if the source object is updated the ObjectReader
-is pointing to the original and will contain the updated values
+Overrides the toString method to return the object back as a string
 
 **Parameters**
 
--   `source`  {Object | Array} the object or array to inspect
-
-**Examples**
-
-```javascript
-var obj = {a:1, b:{c:'test', d:{e:'me'}}}
-var reader = new ObjectReader(obj);
-
-// alternatively
-var reader = new montaque.ObjectReader(obj)
-
-// or if you have npm
-var ObjectReader = require('ObjectReader');
-var reader = new ObjectReader(obj)
-
-// or if you are using angular
-angular.modules(<YOUR-APP-NAME>, ['montaque.objectreader']).run(['ObjectReader' function(ObjectReader){
-     var reader = new ObjectReader(obj)
-}])
-```
+-   `nDeep`  

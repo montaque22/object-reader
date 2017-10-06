@@ -2,10 +2,12 @@
     "index": "src/index.html",
     "source": "src",
     "devOutput": "app.js",
-    "prodOutput": "kingdom.min.js",
+    "prodOutput": "object-reader.js",
+    "prodOutputMin": "object-reader.min.js",
     "contentBase": "src",
-    "devEntry": "./src/main.ts",
-    "prodEntry": "./src/js/kingdom.ts",
-    "dist": "dist"
+    "devEntry": "./src/js/main.js",
+    "prodEntry": "./src/js/object-reader.js",
+    "dist": "dist",
+    "name": "object-reader"
 
 }

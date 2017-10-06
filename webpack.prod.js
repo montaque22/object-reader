@@ -3,7 +3,16 @@ const merge             = require('webpack-merge');
 const UglifyJSPlugin    = require('uglifyjs-webpack-plugin');
 const WebpackShellPlugin= require('webpack-shell-plugin');
 const common            = require('./webpack.common.js');
-const { prodEntry, prodOutput, dist }     = require('./config.json');
+const { prodEntry, prodOutput, dist, prodOutputMin}     = require('./config.json');
+
+const plugins = [];
+
+if(process.env.PRODUCTION){
+    plugins.push( new WebpackShellPlugin({
+        onBuildEnd: `cp ${prodEntry} ${dist}/es6/`
+    }));
+    plugins.push(new UglifyJSPlugin());
+}
 
 
 module.exports = merge(common, {
@@ -11,14 +20,9 @@ module.exports = merge(common, {
         app: prodEntry
     },
     output: {
-        filename: prodOutput,
+        filename: process.env.PRODUCTION ? prodOutputMin : prodOutput,
         path: path.resolve(__dirname, dist),
-        libraryTarget: 'umd'
+        libraryTarget: 'commonjs'
     },
-    plugins: [
-        new UglifyJSPlugin(),
-        new WebpackShellPlugin({
-            onBuildEnd: `cp ${prodEntry} ${dist}`
-        })
-    ]
+    plugins
 });

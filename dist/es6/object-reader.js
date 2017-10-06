@@ -20,13 +20,41 @@
 
 
 
+/**
+ * @namespace montaque
+ */
+// var montaque        = montaque || {};
+// var ObjectReader    = null;
 
 
+/**
+ * @memberof montaque
+ *
+ * @description
+ * Takes in a source object such as an array or object. Even if the source object is updated the ObjectReader
+ * is pointing to the original and will contain the updated values
+ *
+ * @example
+ * var obj = {a:1, b:{c:'test', d:{e:'me'}}}
+ * var reader = new ObjectReader(obj);
+ *
+ * // alternatively
+ * var reader = new montaque.ObjectReader(obj)
+ *
+ * // or if you have npm
+ * var ObjectReader = require('ObjectReader');
+ * var reader = new ObjectReader(obj)
+ *
+ * @param source {Object | Array} the object or array to inspect
+ * @constructor
+ */
 export function ObjectReader(source){
     var _source = source;
 
     verifySource();
     runPolyfills();
+
+
 
 
     /**

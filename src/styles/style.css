@@ -1,0 +1,15 @@
+
+.inspectable,
+.injectable {
+    height:0;
+    visibility: hidden;
+    position: absolute;
+}
+
+.inject-mode .injectable,
+.inspect-mode .inspectable {
+    height:auto;
+    visibility: visible;
+    position: relative;
+}
+

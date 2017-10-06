@@ -20,12 +20,13 @@ module.exports = merge(common, {
 
     output: {
         filename: devOutput,
-        path: path.resolve(__dirname, contentBase)
+        path: path.resolve(__dirname, contentBase),
+        libraryTarget:'umd'
     },
 
     plugins: [
         new HtmlWebpackPlugin({
-            title: 'KingDOM',
+            title: 'Objec Reader',
             template: index
         })
     ],

@@ -1,16 +1,162 @@
 <!doctype html>
 <html class="no-js" lang="">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Object Reader</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Object Reader</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.8.1/themes/prism.min.css">
+    <link rel="stylesheet" href="styles/style.css">
+    <style>
+
+        .inspectable,
+        .injectable {
+            height:0;
+            visibility: hidden;
+            position: absolute;
+        }
+
+        .inject-mode .injectable,
+        .inspect-mode .inspectable {
+            height:auto;
+            visibility: visible;
+            position: relative;
+        }
 
 
-    </head>
-    <body>
-        <script src="../dist/bundle.js"></script>
-        <script src="js/main.js"></script>
-    </body>
+    </style>
+</head>
+<body>
+<div class="container">
+
+
+        <div class="card w-100 mb-5">
+            <h4 class="card-header">Method to Execute</h4>
+            <div class="card-body">
+                <p><b>STEP 1:</b> Choose a method to run</p>
+                <div class="swapable instructions">
+                    <div class="injectable">
+                        <strong>Inject Notes:</strong>
+                        <p><code>inject</code> allows you to update properties within deeply nested objects no matter
+                            how deep they go.</p>
+                    </div>
+                    <div class="inspectable">
+                        <strong>Inspect Notes:</strong>
+                        <p><code>inspect</code> allows you to safely read any property within a deeply nested
+                            object. This is very useful when interacting with data.</p>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center card-body">
+                    <pre class="language-js"><code id="method-display">reader.inject(path, value, strictMode)</code></pre>
+                </div>
+                <div class="btn-group mr-2 d-flex justify-content-center" role="group" aria-label="Second group">
+                    <button type="button" method="inject" need-strict=true class="btn btn-link"
+                            id="inject-method">Inject
+                        Method</button>
+                    <button type="button" method="inspect"  class="btn btn-link"
+                            id="inspect-method">Inspect
+                    Method</button>
+                </div>
+
+            </div>
+        </div>
+
+
+    <div class="card params">
+        <h4 class="card-header ">Method Parameters</h4>
+
+        <div class="card-body">
+            <p><b>STEP 2:</b> Fill out the method parameters</p>
+            <div class="swapable instructions">
+                <div class="injectable">
+                    <strong>Inject Notes:</strong>
+                    <p>This section will shake when an illegal <code>inject</code> is performed.
+                        Illegal <code>inject</code> can be one of the following:</p>
+                    <ul>
+                        <li>Taking an incorrect existing path.</li>
+                        <li>Creating new properties while <code>isStrict</code> is true.</li>
+                    </ul>
+                    <p>Strict mode prevents you from accidentally creating new properties. With strict mode on
+                        you will only be able to edit existing properties.</p>
+                </div>
+                <div class="inspectable">
+                    <strong>Inspect Notes:</strong>
+                    <p>You can inspect the object any way you like. It doesn't matter if the property exists as it
+                        will safely return <code>undefined</code></p>
+                   <p>If you need the reader to return specific values for non-existent properties then you can set
+                       the <code>defaultValue</code> parameter.</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="keypath">path</span>
+                        <input type="text" class="form-control" placeholder="peanut.butter.and.0">
+                    </div>
+                </div>
+                <div class="col-sm-4 swapable">
+                    <div class="input-group injectable">
+                        <span class="input-group-addon">value</span>
+                        <input type="text" class="form-control group-2 value" placeholder="time">
+                    </div>
+
+                    <div class="input-group inspectable">
+                        <span class="input-group-addon">defaultValue</span>
+                        <input type="text" class="form-control group-2 default" placeholder="undefined">
+                    </div>
+                </div>
+
+                <div class="col-sm-4 swapable" >
+                    <div class="input-group injectable">
+                        <span class="input-group-addon">
+                            <input type="checkbox" class="group-3" aria-label="Checkbox for following text input">
+                        </span>
+                        <input type="text" class="form-control" disabled value="isStrict">
+                    </div>
+
+                    <div class="input-group inspectable">
+                        <span class="input-group-addon">=</span>
+                        <input type="text" class="form-control group-3 answer" placeholder="Answer" disabled>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+            <div class="btn-toolbar d-flex justify-content-center mt-3" role="toolbar"
+                 aria-label="Toolbar with button groups">
+
+                <div class="btn-group mr-2" role="group" aria-label="First group">
+                    <button type="button" class="btn btn-success" id="submit">Submit</button>
+                </div>
+
+
+                <div class="btn-group mr-2" role="group" aria-label="First group">
+                    <button type="button" class="btn btn-info" id="prefill">Prefill</button>
+                    <button type="button" class="btn btn-danger" id="reset">Reset</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="card mt-5">
+        <h4 class="card-header">Object Representation</h4>
+        <div class="card-body">
+               <pre>let output = <code id="display" class="language-js"></code></pre>
+        </div>
+    </div>
+</div>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/prism/1.8.1/prism.js"></script>
+<script src="//code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.5.0/velocity.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.5.0/velocity.ui.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<script type="text/javascript" src="app.js"></script></body>
 </html>

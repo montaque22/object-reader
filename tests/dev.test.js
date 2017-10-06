@@ -6,8 +6,6 @@ var should = require('chai').should();
 var assert = require('assert');
 import {ObjectReader} from "../src/js/object-reader";
 
-console.log(ObjectReader);
-
 
 describe('Testing: constructor', function() {
 
