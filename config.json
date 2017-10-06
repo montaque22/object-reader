@@ -1,0 +1,11 @@
+{
+    "index": "src/index.html",
+    "source": "src",
+    "devOutput": "app.js",
+    "prodOutput": "kingdom.min.js",
+    "contentBase": "src",
+    "devEntry": "./src/main.ts",
+    "prodEntry": "./src/js/kingdom.ts",
+    "dist": "dist"
+
+}

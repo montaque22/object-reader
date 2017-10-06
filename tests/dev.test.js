@@ -130,6 +130,11 @@ describe('Testing: inspect', function() {
             f:'g'
         }];
 
+    it('Should return answer at level 1', function() {
+        var reader = new ObjectReader(obj);
+        reader.inspect('a').should.equal(1)
+    });
+
     it('Should fetch deep array value from object', function() {
         var reader = new ObjectReader(obj);
         assert.equal(reader.inspect('b.d.0.e'),'f', 'was supposed to return "f');
@@ -169,18 +174,75 @@ describe('Testing: inject', function() {
 
     it('Should successfully modify a deep existing value', function() {
         var reader = new ObjectReader(obj);
-        assert.ok(reader.inject('b.d.0.e', 5), 'was supposed to return true');
+        reader.inject('b.g', 5).should.be.true;
+        obj.b.g.should.equal(5)
+
+    });
+
+    it('Should return false when accessing incorrect parameters and object should not change', function() {
+        var reader = new ObjectReader(obj);
+        var copy = JSON.parse(JSON.stringify(obj));
+
+        reader.inject('a.b.c', 5).should.be.false;
+
+        obj.should.eql(copy)
+
+    });
+
+    it('Should return false on strict mode 1 level deep for new variable', function() {
+        var reader = new ObjectReader(obj);
+        reader.inject('h', 5, true).should.be.false;
+    });
+
+    it('Should return false on strict mode 3 levels deep for new variable', function() {
+        var reader = new ObjectReader(obj);
+
+        reader.inject('b.d.h', 5, true).should.be.false;
+
     });
 
     it('Should successfully create a deep value from existing path', function() {
+        console.log(JSON.stringify(obj))
         var reader = new ObjectReader(obj);
-        reader.inject('b.d.0.g.2', 'h').should.be.equal(true);
-        reader.getSource().should.have.deep.property('b.d.0.g.2', 'h');
+        reader.inject('b.d.0.g.2', 'h').should.be.true;
+        console.log(JSON.stringify(obj))
+        obj.b.d[0].g[2].should.be.equal('h')
+
+    });
+
+    it('Should successfully create a deep value from empty object ', function() {
+        var reader = new ObjectReader({});
+        var obj = {
+            p: {
+                b:[{
+                    j:'yum'
+                }]
+            }
+        };
+        reader.inject('p.b.0.j', 'yum').should.be.equal(true);
+        var source = reader.getSource();
+        source.should.be.eql(obj);
+    });
+
+    it('Should throw error if an empty string is injected into an empty object', function() {
+        var reader = new ObjectReader({});
+        (() => {
+            reader.inject('', 'yum')
+        }).should.throw();
+    });
+
+
+    it('Should throw error if a non-string is injected into an empty object', function() {
+        var reader = new ObjectReader({});
+        (() => {
+            reader.inject(3 , 'yum')
+        }).should.throw();
     });
 
     it('Should fail to create a deep value from a non-existing path', function() {
         var reader = new ObjectReader(obj);
-        reader.inject('b.d.0.g.2', 5, true).should.equal(false)
+        reader.inject('b.d.0.g.2', 5, true).should.equal(false);
+
         reader.getSource().should.not.have.deep.property('b.d.0.g.2');
     });
 
@@ -188,7 +250,7 @@ describe('Testing: inject', function() {
 
 describe('Testing: doesSourceExist', function() {
 
-    it('Should return true if initialized with an objectbor array', function() {
+    it('Should return true if initialized with an objectb or array', function() {
         var reader = new ObjectReader({});
         reader.doesSourceExists().should.equal(true);
         reader.setSource([]);
