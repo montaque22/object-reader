@@ -51,7 +51,7 @@ sets the source of the reader. (The source is the object that will be read.)
 
 **Parameters**
 
--   `source`  {Object | Array} changes the source of the reader to the value provided
+-   `source` **([Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object) \| [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array))** changes the source of the reader to the value provided
 
 ### getSource
 
@@ -72,8 +72,8 @@ defaultProperty param. You can also access array members by referring to the ind
 
 **Parameters**
 
--   `propertyString`  {String}   Dot notations string path to the key you want to access
--   `defaultProperty`  {any}     value you want to return if the accessed key is non-existent
+-   `propertyString` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Dot notations string path to the key you want to access
+-   `defaultProperty` **any** value you want to return if the accessed key is non-existent
 
 **Examples**
 
@@ -97,9 +97,9 @@ the keyString does not exist. If successful, this method mutates the original ob
 
 **Parameters**
 
--   `keyString`  Path (Denoted in string dot notation) of where to set the value
--   `value`  value you want to set
--   `isStrict`  protects the object from unintended mutations.
+-   `keyString` **[String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Path (Denoted in string dot notation) of where to set the value
+-   `value` **Any** value you want to set
+-   `isStrict` **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** protects the object from unintended mutations.
 
 **Examples**
 
@@ -130,7 +130,3 @@ Returns **[Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refe
 ### toString
 
 Overrides the toString method to return the object back as a string
-
-**Parameters**
-
--   `nDeep`  

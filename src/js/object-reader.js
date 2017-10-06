@@ -33,7 +33,7 @@ export function ObjectReader(source){
 
     /**
      * sets the source of the reader. (The source is the object that will be read.)
-     * @param source {Object | Array} changes the source of the reader to the value provided
+     * @param {Object | Array} source changes the source of the reader to the value provided
      */
     this.setSource = function(source){
         var didPass = verifySource(source, true);
@@ -83,8 +83,8 @@ export function ObjectReader(source){
      *  reader.inspect('b.f.2.g')                   // -> 31
      *  reader.inspect(b.d.f.g, 'Does not exist')   // -> 'Does not exist'
      *
-     * @param propertyString {String}   Dot notations string path to the key you want to access
-     * @param defaultProperty {any}     value you want to return if the accessed key is non-existent
+     * @param {String} propertyString  Dot notations string path to the key you want to access
+     * @param {any} defaultProperty    value you want to return if the accessed key is non-existent
      * @returns {any}
      */
     this.inspect = function(propertyString, defaultProperty){
@@ -131,9 +131,9 @@ export function ObjectReader(source){
      *
 
      *
-     * @param keyString     - Path (Denoted in string dot notation) of where to set the value
-     * @param value         - value you want to set
-     * @param isStrict      - protects the object from unintended mutations.
+     * @param {String} keyString    - Path (Denoted in string dot notation) of where to set the value
+     * @param {Any} value           - value you want to set
+     * @param {Boolean} isStrict    - protects the object from unintended mutations.
      * @returns {Boolean}   - Returns true if successful.
      */
     this.inject = function(keyString, value, isStrict){
@@ -250,7 +250,6 @@ export function ObjectReader(source){
 
     /**
      * Overrides the toString method to return the object back as a string
-     * @param nDeep
      */
     this.toString = function(){
         return objToString(_source)
