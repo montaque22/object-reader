@@ -12,13 +12,7 @@
  *
  * @example <caption>Install Via Bower</caption>
  * bower install montaque-objectreader
- *
- * @example <caption>Other</caption>
- * // Or just download and place the object-reader.js file in your directory and enjoy.
- *
  */
-
-
 
 
 

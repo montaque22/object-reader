@@ -35,12 +35,6 @@ _Install Via Bower_
 bower install montaque-objectreader
 ```
 
-_Other_
-
-```javascript
-// Or just download and place the object-reader.js file in your directory and enjoy.
-```
-
 **Meta**
 
 -   **author**: Michael Montaque on 8/14/16.
