@@ -1,11 +1,11 @@
 {
   "name": "montaque-objectreader",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "A safe way to access and manipulate object properties and arrays",
   "main": "dist/object-reader.js",
   "scripts": {
     "start": "webpack-dev-server --open --config webpack.dev.js",
-    "test": "mocha --compilers js:node_modules/babel-core/register tests/main.js",
+    "test": "mocha --compilers js:node_modules/babel-core/register tests",
     "build": "webpack --config webpack.prod.js && PRODUCTION=true webpack --config webpack.prod.js"
   },
   "repository": {
